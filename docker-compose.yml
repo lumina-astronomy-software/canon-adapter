@@ -1,0 +1,43 @@
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    platform: linux/arm/v7
+    container_name: mediamtx
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      MTX_WEBRTCADDITIONALHOSTS: ${SBC_IP:-192.168.1.70}
+      MTX_API: "yes"
+
+  camera:
+    image: lumina-stream/canon-adapter:latest
+    build: .
+    container_name: canon-adapter
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - captures:/tmp/captures
+    environment:
+      PORT: ${PORT:-3001}
+      STREAM_PATH: ${STREAM_PATH:-canon}
+      MEDIAMTX_RTSP_URL: ${MEDIAMTX_RTSP_URL:-rtsp://127.0.0.1:8554/canon}
+      MEDIAMTX_WEBRTC_URL: ${MEDIAMTX_WEBRTC_URL:-http://127.0.0.1:8889}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL:-}
+      AUTO_TIMELAPSE: ${AUTO_TIMELAPSE:-false}
+      DAILY_REPORT_HOUR: ${DAILY_REPORT_HOUR:-8}
+      OBSERVER_LAT: ${OBSERVER_LAT:-57.6261}
+      OBSERVER_LON: ${OBSERVER_LON:-39.8845}
+      TIMEZONE_OFFSET: ${TIMEZONE_OFFSET:-3}
+    depends_on:
+      - mediamtx
+
+volumes:
+  captures:
