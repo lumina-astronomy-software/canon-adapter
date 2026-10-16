@@ -10,7 +10,7 @@ services:
       MTX_API: "yes"
 
   camera:
-    image: lumina-stream/canon-adapter:latest
+    image: lumina-astronomy-software/canon-adapter:latest
     build: .
     container_name: canon-adapter
     restart: unless-stopped

@@ -2,7 +2,7 @@
 
 Reference **Lumina camera adapter** for a Canon DSLR on a single-board computer.
 
-This process implements [`lumina.camera.v1`](https://github.com/lumina-stream/lumina/blob/main/packages/shared/PROTOCOL.md). Star Watcher does not know about Canon or gphoto2. It probes `GET /adapter` and then uses the same routes any other adapter would.
+This process implements [`lumina.camera.v1`](https://github.com/lumina-astronomy-software/lumina/blob/main/packages/shared/PROTOCOL.md). Star Watcher does not know about Canon or gphoto2. It probes `GET /adapter` and then uses the same routes any other adapter would.
 
 ```
 Canon DSLR ──USB──► canon-adapter (gphoto2 → ffmpeg → MediaMTX)

@@ -33,7 +33,7 @@ cross-build: $(BUILD_DIR)
 	docker buildx build \
 		--platform $(PLATFORM) \
 		--build-arg APP_VERSION=$(VERSION) \
-		-t lumina-stream/canon-adapter:latest \
+		-t lumina-astronomy-software/canon-adapter:latest \
 		--output type=docker,dest=$(BUILD_DIR)/canon-adapter.tar \
 		.
 	@echo "Image: $(BUILD_DIR)/canon-adapter.tar (version: $(VERSION))"
